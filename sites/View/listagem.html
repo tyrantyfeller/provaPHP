@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<head>
+    <title>Login</title>
+
+    <link href="View/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+    <link href="View/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="View/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="View/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="View/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="View/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <link href="View/assets/css/style.css" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.ajax({
+                type: "POST",
+                url: 'index.php?route=listagem/lista',
+                dataType: 'html',
+                success: function (ret) {
+                    var retorno = JSON.parse(ret);
+
+                    if (retorno.erro) {
+
+                        retorno.data.forEach(function (item) {
+                            console.log(item);
+                            $('#list_usuarios').append('<li class="list-group-item">Usuario: ' + item.tx_nome + ' Email: ' + item.tx_email + '</li>');
+                        });
+                    } else {
+                        alert('Erro ao carregar a página!');
+                    }
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+  <section id="list" class="list">
+      <div class="container">
+          <ul class="list-group" id="list_usuarios">
+
+          </ul>
+      </div>
+  </section>
+</body>
+</html>
